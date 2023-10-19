@@ -1,0 +1,72 @@
+<mvc:View controllerName="tc.requisitions.controller.req"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:t="sap.ui.table"
+    xmlns:m="sap.m"
+    displayBlock="true">
+<t:Table
+		id="table"
+		rows="{/}"
+		width="auto"
+		visibleRowCountMode="Auto"
+		visibleRowCount="{ui>/visibleRowCount}"
+		selectionMode="None"				
+		alternateRowColors="true"
+		ariaLabelledBy="title">
+		<t:extension>
+			<m:OverflowToolbar id="oflow001">
+					<m:Title id="title" text="Requisitions ({ui>/numReqs})"/>
+					<m:ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+					<m:Label id="_IDGenLabel1" text="Enter Selection Date"/>
+					<m:ToolbarSeparator id="_IDGenToolbarSeparator1"/>
+					<m:DynamicDateRange
+						id="dynamic-range"
+						change=".onDynamicDateChange"/>					
+			</m:OverflowToolbar>
+		</t:extension>
+	  	<t:columns>
+				<t:Column 
+					id="reqNum"
+					showSortMenuEntry="true"
+					sortProperty="PurchaseRequisitionID"
+					width="11rem"
+                    >
+					<m:Label id="lab001" text="Requisition Num"/>
+						<t:template>
+							<m:Text id="text001" text="{PurchaseRequisitionID}" wrapping="false" />
+						</t:template>
+				</t:Column>
+				<t:Column 
+					id="material"
+					showSortMenuEntry="true"
+					sortProperty="Material"
+					width="11rem"
+                    >
+					<m:Label id="lab003" text="Material"/>
+						<t:template>
+							<m:Text id="text003" text="{Material}" wrapping="false" />
+						</t:template>
+				</t:Column>
+				<t:Column 
+					id="qty"
+					showSortMenuEntry="false"
+					sortProperty="Quantity"
+					width="11rem"
+                    >
+					<m:Label id="lab004" text="Quantity"/>
+						<t:template>
+							<m:Text id="text004" text="{Quantity}" wrapping="false" />
+						</t:template>
+				</t:Column>
+				<t:Column 
+					id="descr"
+					showSortMenuEntry="true"
+					sortProperty="Description"
+                    >
+					<m:Label id="lab002" text="Description"/>
+						<t:template>
+							<m:Text id="text002" text="{Description}" wrapping="false" />
+						</t:template>
+				</t:Column>
+		</t:columns>
+	</t:Table>
+</mvc:View>
