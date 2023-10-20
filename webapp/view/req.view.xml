@@ -4,11 +4,10 @@
     xmlns:m="sap.m"
     displayBlock="true">
 <t:Table
-		id="table"
-		rows="{/}"
+		id="reqtable"
+		rows="{reqs>/}"
 		width="auto"
-		visibleRowCountMode="Auto"
-		visibleRowCount="{ui>/visibleRowCount}"
+		rowMode="Auto"
 		selectionMode="None"				
 		alternateRowColors="true"
 		ariaLabelledBy="title">
@@ -16,11 +15,13 @@
 			<m:OverflowToolbar id="oflow001">
 					<m:Title id="title" text="Requisitions ({ui>/numReqs})"/>
 					<m:ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-					<m:Label id="_IDGenLabel1" text="Enter Selection Date"/>
+					<m:Label id="_IDGenLabel1" text="Select Creation Date Range"/>
 					<m:ToolbarSeparator id="_IDGenToolbarSeparator1"/>
 					<m:DynamicDateRange
 						id="dynamic-range"
-						change=".onDynamicDateChange"/>					
+						standardOptions=""
+						width="20rem"
+						change=".onChange"/>					
 			</m:OverflowToolbar>
 		</t:extension>
 	  	<t:columns>
@@ -32,7 +33,7 @@
                     >
 					<m:Label id="lab001" text="Requisition Num"/>
 						<t:template>
-							<m:Text id="text001" text="{PurchaseRequisitionID}" wrapping="false" />
+							<m:Text id="text001" text="{reqs>PurchaseRequisitionID}" wrapping="false" />
 						</t:template>
 				</t:Column>
 				<t:Column 
@@ -43,7 +44,7 @@
                     >
 					<m:Label id="lab003" text="Material"/>
 						<t:template>
-							<m:Text id="text003" text="{Material}" wrapping="false" />
+							<m:Text id="text003" text="{reqs>Material}" wrapping="false" />
 						</t:template>
 				</t:Column>
 				<t:Column 
@@ -54,17 +55,17 @@
                     >
 					<m:Label id="lab004" text="Quantity"/>
 						<t:template>
-							<m:Text id="text004" text="{Quantity}" wrapping="false" />
+							<m:Text id="text004" text="{reqs>Quantity}" wrapping="false" />
 						</t:template>
 				</t:Column>
 				<t:Column 
-					id="descr"
+					id="descr2"
 					showSortMenuEntry="true"
 					sortProperty="Description"
                     >
-					<m:Label id="lab002" text="Description"/>
+					<m:Label id="lab0022" text="Description"/>
 						<t:template>
-							<m:Text id="text002" text="{Description}" wrapping="false" />
+							<m:Text id="text0022" text="{reqs>Description}" wrapping="false" />
 						</t:template>
 				</t:Column>
 		</t:columns>
