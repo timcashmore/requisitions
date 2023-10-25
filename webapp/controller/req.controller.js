@@ -13,45 +13,82 @@ sap.ui.define([
         
         return Controller.extend("tc.requisitions.controller.req", {
             onInit: function () {
-
                 var oStandardOptions = ["DATE", "TODAY", "YESTERDAY", "FIRSTDAYWEEK", "FIRSTDAYMONTH", "FIRSTDAYQUARTER", 
                 "FIRSTDAYYEAR", "DATERANGE", "DATETIMERANGE", "YEARTODATE", "LASTMINUTES", "LASTHOURS", "LASTDAYS", 
                 "LASTWEEKS", "LASTMONTHS", "LASTQUARTERS", "LASTYEARS", "TODAYFROMTO", "THISWEEK", "LASTWEEK", "SPECIFICMONTH", "SPECIFICMONTHINYEAR", 
                 "THISMONTH", "LASTMONTH", "THISQUARTER", "LASTQUARTER", "QUARTER1", "QUARTER2", "QUARTER3", "QUARTER4", "THISYEAR", "LASTYEAR"];
-                var oDynamicRange = this.getView().byId("dynamic-range");
-                oDynamicRange.setStandardOptions(oStandardOptions);
+//                var oDynamicRange = this.getView().byId("dynamic-range");
+                // Set options on Date Picker
+                this.getView().byId("dynamic-range").setStandardOptions(oStandardOptions);
+
+                // Test ajax get
+                //this.loadTestData();
             },
             onChange: function(oEvent) {
                 var oValue = oEvent.getParameter("value");
                 var bValid = oEvent.getParameter("valid");
                 var aDates = DynamicDateRange.toDates(oValue);
-                console.log("aDates = "+aDates.length+" "+aDates[0]+" "+aDates[1]);
+//                console.log("aDates = "+aDates.length+" "+aDates[0]+" "+aDates[1]);
                 if (oValue != null && bValid) {
                     // Reload data
                     this.loadDataModel(aDates[0],aDates[1]);		                
                 }             
             }, 
             loadDataModel: function(fromDate, toDate) {
-                console.log("hostname = "+window.location.hostname);
-//                var URI =  "/PurchaseRequisition?$top=10000&$filter=Material eq 'MZ-TG-0011' and CreationDate gt "+this.dateAsURIParam(fromDate)+"and CreationDate le "+this.dateAsURIParam(toDate);
-                var URI =  "PurchaseRequisition?$top=10000&$filter=CreationDate gt "+this.dateAsURIParam(fromDate)+"and CreationDate le "+this.dateAsURIParam(toDate);
-                console.log("URI= "+URI);
+                var oView = this.getView();
+//                var URI =  "PurchaseRequisition?$top=10000&$filter=Material eq 'MZ-TG-0011' and CreationDate gt "+this.dateAsURIParam(fromDate)+"and CreationDate le "+this.dateAsURIParam(toDate);
+                var URI =  "/PurchaseRequisition?$top=10000&$filter=CreationDate gt "+this.dateAsURIParam(fromDate)+"and CreationDate le "+this.dateAsURIParam(toDate);
+                // Construct path to resource within the SAPUI5 framework
+                var fullURI = sap.ui.require.toUrl(((this.getOwnerComponent().getManifestEntry("/sap.app/id")).replaceAll(".","/"))+URI);
+                //console.log("fulURI = "+fullURI);
                 var oReqs = new JSONModel();
-                var oPromise = oReqs.loadData(URI);
-                oPromise.then( () => {
-                    //How many items
+//                var oPromise = oReqs.loadData(fullURI);
+                oReqs.loadData(fullURI).then( () => {
+                    //How many items read
                     var oLen = oReqs.getData().length;
-                    console.log("reload length = "+oLen);                    
+//                    console.log("reload length = "+oLen);                    
                     var oUIModel = new JSONModel({
                         numReqs: oLen
                     });
-                    var oView = this.getView();
                     oView.setModel(oUIModel,"ui");
                     oView.setModel(oReqs,"reqs");
-                    var oReqID = oView.byId("reqNum");
+                    // Sort by default Descending Purchase Req Num
                     oView.byId("reqtable").sort(oView.byId("reqNum"), library.SortOrder.Descending);
                 }) 
             },
+
+            loadTestData: function () {
+  
+                    // Function to Test Ajax Calls and Creating relative URL correctly - for reference only, not called
+                    var oProds = new JSONModel();
+                    var appId = this.getOwnerComponent().getManifestEntry("/sap.app/id");
+                    var appPath = appId.replaceAll(".", "/");
+                    var url = sap.ui.require.toUrl(appId.replaceAll(".","/")+"/Product");                  
+
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        dataType: 'json',
+                        async: true,
+                        contentType: 'application/json',
+//                        beforeSend: function(xhr) {
+//                            xhr.setRequestHeader('X-CSRF-Token', 'fetch');
+//                        },
+                        success: function(data) {
+                            oProds.setData(data);
+   //                         console.log("oProds Success "+oProds.getJSON());
+   //                        jQuery.ajaxSetup({
+   //                             beforeSend: function(xhr) {
+   //                               xhr.setRequestHeader("X-CSRF-Token",response.getResponseHeader('X-CSRF-Token'));
+   //                             }
+   //                           });
+                        },
+                        error: function(error) {
+    //                        console.log("Error on ajax: "+ error);
+                        }
+                      });
+            },
+
             dateAsURIParam: function (vValue) {
                 return vValue ? ODataUtils.formatValue(vValue, "Edm.DateTime") : "<null>";
             }

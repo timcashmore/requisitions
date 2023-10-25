@@ -15,6 +15,16 @@
       "version": "1.11.2",
       "toolsId": "0ff6c9d4-7ce9-4755-82ef-0d63a69e1a08"
     },
+    "dataSources": {
+      "proddata": {
+				"uri": "/Product",
+				"type": "JSON"
+			},
+      "reqdata": {
+				"uri": "/PurchaseRequisition?$top=10000&$filter=CreationDate gt datetime'2023-03-21T00:00:00.000' and Material eq 'MZ-TG-0011'",
+				"type": "JSON"
+			}
+    },
     "crossNavigation": {
       "inbounds": {
         "Req-Display": {
@@ -71,7 +81,15 @@
         "settings": {
           "bundleName": "tc.requisitions.i18n.i18n"
         }
-      }
+      },
+      "proddata": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "proddata"
+			},
+      "reqdata": {
+				"type": "sap.ui.model.json.JSONModel",
+				"dataSource": "reqdata"
+			}
     },
     "resources": {
       "css": [
