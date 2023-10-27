@@ -1,0 +1,8 @@
+#
+#Fri Oct 27 16:28:57 UTC 2023
+URL=https\://dummyjson.com/
+Name=APITEST
+ProxyType=Internet
+Type=HTTP
+Authentication=NoAuthentication
+Description=APITEST

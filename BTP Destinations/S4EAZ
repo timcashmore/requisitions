@@ -1,0 +1,15 @@
+#Password=<< Existing password/certificate removed on export >>
+#
+#Fri Oct 27 16:29:08 UTC 2023
+Description=S4 EAZ
+Type=HTTP
+sap-platform=ABAP
+HTML5.DynamicDestination=true
+Authentication=BasicAuthentication
+WebIDEUsage=odata_abap, dev_abap
+Name=S4EAZ
+WebIDEEnabled=true
+ProxyType=Internet
+URL=https\://my300232-api.s4hana.ondemand.com/
+User=IRPA_USER
+WebIDESystem=Gateway

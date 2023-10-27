@@ -1,0 +1,12 @@
+#Password=<< Existing password/certificate removed on export >>
+#
+#Fri Oct 27 16:28:52 UTC 2023
+Description=APIDEMO_TEST
+Type=HTTP
+HTML5.DynamicDestination=false
+Authentication=BasicAuthentication
+Name=APIDEMO_TEST
+ProxyType=Internet
+URL=https\://api-pntisdemo.prod.apimanagement.eu10.hana.ondemand.com/http/API_Demo_TEST/
+User=sb-bb163e98-da16-4a41-979b-1b890f89c6bd\!b68789|it-rt-cpi-pntisdemo\!b16077
+HTML5.ForwardAuthToken=false
