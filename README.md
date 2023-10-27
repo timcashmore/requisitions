@@ -19,7 +19,11 @@
 
 ## requisitions
 
-API LIst Requisistions
+API LIst Requisistions  This is based upon SAP Demo Scenarion 18352
+
+https://content-discovery.int.sap/assets/demo-store/18352
+
+NB: Switch between API_DEMO and API_DEMO_TEST
 
 ### Starting the generated app
 
