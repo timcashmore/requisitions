@@ -14,7 +14,7 @@ sap.ui.define([
         return Controller.extend("tc.requisitions.controller.req", {
             onInit: function () {
                 var oStandardOptions = ["DATE", "TODAY", "YESTERDAY", "FIRSTDAYWEEK", "FIRSTDAYMONTH", "FIRSTDAYQUARTER", 
-                "FIRSTDAYYEAR", "DATERANGE", "DATETIMERANGE", "YEARTODATE", "LASTMINUTES", "LASTHOURS", "LASTDAYS", 
+                "FIRSTDAYYEAR", "DATERANGE", "YEARTODATE", "LASTMINUTES", "LASTHOURS", "LASTDAYS", 
                 "LASTWEEKS", "LASTMONTHS", "LASTQUARTERS", "LASTYEARS", "TODAYFROMTO", "THISWEEK", "LASTWEEK", "SPECIFICMONTH", "SPECIFICMONTHINYEAR", 
                 "THISMONTH", "LASTMONTH", "THISQUARTER", "LASTQUARTER", "QUARTER1", "QUARTER2", "QUARTER3", "QUARTER4", "THISYEAR", "LASTYEAR"];
 //                var oDynamicRange = this.getView().byId("dynamic-range");
@@ -31,13 +31,13 @@ sap.ui.define([
 //                console.log("aDates = "+aDates.length+" "+aDates[0]+" "+aDates[1]);
                 if (oValue != null && bValid) {
                     // Reload data
-                    this.loadDataModel(aDates[0],aDates[1]);		                
+                    this.loadDataModel(aDates[0],aDates[1]);	              
                 }             
             }, 
             loadDataModel: function(fromDate, toDate) {
                 var oView = this.getView();
-//                var URI =  "PurchaseRequisition?$top=10000&$filter=Material eq 'MZ-TG-0011' and CreationDate gt "+this.dateAsURIParam(fromDate)+"and CreationDate le "+this.dateAsURIParam(toDate);
-                var URI =  "/PurchaseRequisition?$top=10000&$filter=CreationDate gt "+this.dateAsURIParam(fromDate)+"and CreationDate le "+this.dateAsURIParam(toDate);
+                //var URI =  "/PurchaseRequisition?$top=10000&$filter=Material eq 'MZ-TG-0011' and CreationDate gt "+this.dateAsURIParam(fromDate)+"and CreationDate le "+this.dateAsURIParam(toDate);
+                var URI =  "/PurchaseRequisition?$top=10000&$filter=CreationDate ge "+this.dateAsURIParam(fromDate)+"and CreationDate le "+this.dateAsURIParam(toDate);
                 // Construct path to resource within the SAPUI5 framework
                 var fullURI = sap.ui.require.toUrl(((this.getOwnerComponent().getManifestEntry("/sap.app/id")).replaceAll(".","/"))+URI);
                 //console.log("fulURI = "+fullURI);
@@ -90,7 +90,7 @@ sap.ui.define([
             },
 
             dateAsURIParam: function (vValue) {
-                return vValue ? ODataUtils.formatValue(vValue, "Edm.DateTime") : "<null>";
+                return vValue ? ODataUtils.formatValue((new Date(vValue)).toISOString().slice(0, 10), "Edm.DateTime") : "<null>";
             }
 
         });
