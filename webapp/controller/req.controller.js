@@ -3,12 +3,14 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
     "sap/ui/table/library",
     'sap/m/DynamicDateRange',
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
     "sap/ui/model/odata/ODataUtils",
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,JSONModel,library, DynamicDateRange,ODataUtils) {
+    function (Controller,JSONModel,library, DynamicDateRange, Filter, FilterOperator, ODataUtils) {
         "use strict";
         
         return Controller.extend("tc.requisitions.controller.req", {
@@ -28,10 +30,12 @@ sap.ui.define([
                 var oValue = oEvent.getParameter("value");
                 var bValid = oEvent.getParameter("valid");
                 var aDates = DynamicDateRange.toDates(oValue);
+
 //                console.log("aDates = "+aDates.length+" "+aDates[0]+" "+aDates[1]);
                 if (oValue != null && bValid) {
-                    // Reload data
-                    this.loadDataModel(aDates[0],aDates[1]);	              
+                    // Reload data                    
+                    this.loadDataModel(aDates[0],aDates[1]);
+                    this.clearFilters();	              
                 }             
             }, 
             loadDataModel: function(fromDate, toDate) {
@@ -52,6 +56,8 @@ sap.ui.define([
                     });
                     oView.setModel(oUIModel,"ui");
                     oView.setModel(oReqs,"reqs");
+                    // Clear Filter from Material Column if set.
+                    //oView.byId("reqtable").filter("material",null);
                     // Sort by default Descending Purchase Req Num
                     oView.byId("reqtable").sort(oView.byId("reqNum"), library.SortOrder.Descending);
                 }) 
@@ -91,6 +97,36 @@ sap.ui.define([
 
             dateAsURIParam: function (vValue) {
                 return vValue ? ODataUtils.formatValue((new Date(vValue)).toISOString().slice(0, 10), "Edm.DateTime") : "<null>";
+            },
+
+            clearFilters: function() {
+
+                // Clear filters
+                var oTable = this.byId("reqtable");
+                var aColumns = oTable.getColumns();
+                console.log("acolumns length = "+aColumns.length);
+                for (var i = 0; i < aColumns.length; i++) {
+                    if ( aColumns[i].getFiltered() ) {
+                        console.log("filter True = "+i);
+                        //aColumns[i].setFiltered(null);
+                        oTable.filter(aColumns[i]);
+                    }
+
+                }
+
+            },
+
+            
+            _filter : function() {
+                var oFilter = null;
+     /*           if (this._oGlobalFilter) {
+                    oFilter = this._oGlobalFilter;
+                } */
+                oFilter = new Filter([
+                                        new Filter("Material", FilterOperator.Contains, sQuery),
+                                    ], false);
+
+                this.byId("reqtable").getBinding("rows").filter(oFilter, "Application");
             }
 
         });

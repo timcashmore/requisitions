@@ -38,6 +38,7 @@
 				</t:Column>
 				<t:Column 
 					id="material"
+					filterProperty="Material"
 					showSortMenuEntry="true"
 					sortProperty="Material"
 					width="11rem"
