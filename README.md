@@ -25,6 +25,13 @@ https://content-discovery.int.sap/assets/demo-store/18352
 
 NB: Switch between API_DEMO and API_DEMO_TEST
 
+Remember to npm install node modules
+Will require a .env file for security papramters for accessing local version 
+
+FIORI_TOOLS_USER=
+
+FIORI_TOOLS_PASSWORD=
+
 ### Starting the generated app
 
 -   This app has been generated using the SAP Fiori tools - App Generator, as part of the SAP Fiori tools suite.  In order to launch the generated app, simply run the following from the generated app root folder:
