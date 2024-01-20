@@ -4,7 +4,7 @@
   "routes": [
     {
       "source": "^/PurchaseRequisition(.*)$",
-      "destination": "APIDEMO_TEST",
+      "destination": "REQ_CPI",
       "authenticationType": "xsuaa",
       "csrfProtection": false
     },
