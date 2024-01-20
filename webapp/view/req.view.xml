@@ -12,8 +12,8 @@
 		alternateRowColors="true"
 		ariaLabelledBy="title">
 		<t:extension>
-			<m:OverflowToolbar id="oflow001">
-					<m:Title id="title" text="Requisitions ({ui>/numReqs})"/>
+			<m:OverflowToolbar id="oflow001"> 
+					<m:Title id="title" text="Requisitions {i18n>version} ({ui>/numReqs})"/>
 					<m:ToolbarSpacer id="_IDGenToolbarSpacer1"/>
 					<m:Label id="_IDGenLabel1" text="Select Creation Date Range"/>
 					<m:ToolbarSeparator id="_IDGenToolbarSeparator1"/>
