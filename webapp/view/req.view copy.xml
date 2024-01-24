@@ -60,17 +60,6 @@
 						</t:template>
 				</t:Column>
 				<t:Column 
-					id="createdon"
-					showSortMenuEntry="false"
-					sortProperty="Quantity"
-					width="11rem"
-                    >
-					<m:Label id="lab006" text="Created On"/>
-						<t:template>
-							<m:Text id="text006" text="{reqs>CreatedOn}" wrapping="false" />
-						</t:template>
-				</t:Column>
-				<t:Column 
 					id="descr2"
 					showSortMenuEntry="true"
 					sortProperty="Description"
