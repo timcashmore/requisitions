@@ -62,12 +62,21 @@
 				<t:Column 
 					id="createdon"
 					showSortMenuEntry="false"
-					sortProperty="Quantity"
 					width="11rem"
                     >
 					<m:Label id="lab006" text="Created On"/>
 						<t:template>
 							<m:Text id="text006" text="{reqs>CreatedOn}" wrapping="false" />
+						</t:template>
+				</t:Column>
+				<t:Column 
+					id="createdby"
+					showSortMenuEntry="false"
+					width="11rem"
+                    >
+					<m:Label id="lab007" text="Created By"/>
+						<t:template>
+							<m:Text id="text007" text="{reqs>CreatedBy}" wrapping="false" />
 						</t:template>
 				</t:Column>
 				<t:Column 
