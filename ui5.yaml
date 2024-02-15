@@ -17,7 +17,7 @@ server:
           url: https://ui5.sap.com
         backend:
           - path: /PurchaseRequisition
-            url: https://4f6ec13dtrial.it-cpitrial03-rt.cfapps.ap21.hana.ondemand.com/http/API_Demo_TEST/
+            url: https://4f6ec13dtrial.it-cpitrial03-rt.cfapps.ap21.hana.ondemand.com/http/API_Demo_TEST2/
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
